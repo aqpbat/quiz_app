@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/components/bullet_number.dart';
 
 class QuestionSummary extends StatelessWidget {
   final List<Map<String, Object>> summaryData;
@@ -15,15 +16,44 @@ class QuestionSummary extends StatelessWidget {
             (data) {
               return Row(
                 children: [
-                  Text(((data['question_index'] as int) + 1).toString()),
+                  BulletNumber(
+                    innerNumber: (data['question_index'] as int) + 1,
+                    isCorrectAnswer:
+                        data['user_answer'] == data['correct_answer'],
+                  ),
+                  const SizedBox(width: 20),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Text(data['question'] as String),
-                        const SizedBox(height: 5),
-                        Text(data['user_answer'] as String),
-                        Text(data['correct_answer'] as String),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data['question'] as String,
+                            // textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 254, 254, 254),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            data['user_answer'] as String,
+                            style: const TextStyle(
+                              color: Color.fromARGB(180, 255, 255, 255),
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            data['correct_answer'] as String,
+                            style: const TextStyle(
+                              color: Color.fromARGB(219, 71, 164, 246),
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
